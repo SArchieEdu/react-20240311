@@ -113,5 +113,4 @@ export const headphones = [
     codecs: ["aptX LL", "LDAC", "AAC", "SBC"],
     price: 10,
   },
-  null,
 ];
