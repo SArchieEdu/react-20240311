@@ -3,30 +3,29 @@ import { Headphone } from "./components/headphone/component";
 import { Layout } from "./components/layout/component";
 import { headphones } from "./constants/mock";
 import { HeadphoneTabs } from "./components/headphone-tabs/component";
-import { useEffect } from "react";
+import { ThemeContext } from "./contexts/theme";
+import { Button } from "./components/button/component";
 
 export const App = () => {
   const [currentHeadphoneIndex, setCurrentHeadphoneIndex] = useState(0);
   const currentHeadphone = headphones[currentHeadphoneIndex];
-
-  useEffect(() => {
-    const callback = () => {};
-
-    document.addEventListener("scroll", callback);
-
-    return () => {
-      document.removeEventListener("scroll", callback);
-    };
-  }, []);
+  const [theme, setTheme] = useState("default");
 
   return (
-    <Layout>
-      <HeadphoneTabs
-        headphones={headphones}
-        currentIndex={setCurrentHeadphoneIndex}
-        onTabClick={setCurrentHeadphoneIndex}
-      />
-      {currentHeadphone && <Headphone headphone={currentHeadphone} />}
-    </Layout>
+    <ThemeContext.Provider value={theme}>
+      <Button
+        onClick={() => setTheme(theme === "default" ? "dark" : "default")}
+      >
+        {theme}
+      </Button>
+      <Layout>
+        <HeadphoneTabs
+          headphones={headphones}
+          currentIndex={setCurrentHeadphoneIndex}
+          onTabClick={setCurrentHeadphoneIndex}
+        />
+        {currentHeadphone && <Headphone headphone={currentHeadphone} />}
+      </Layout>
+    </ThemeContext.Provider>
   );
 };

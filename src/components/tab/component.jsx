@@ -1,7 +1,10 @@
+import { SIZES } from "../../constants/sizes";
+import { Button } from "../button/component";
+
 export const Tab = ({ title, isActive, onClick }) => {
   return (
-    <button onClick={onClick} disabled={isActive}>
+    <Button onClick={onClick} disabled={isActive}>
       {title}
-    </button>
+    </Button>
   );
 };

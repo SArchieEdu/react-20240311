@@ -1,19 +1,16 @@
-import { useState } from "react";
 import { Codecs } from "../codecs/component";
 import { HeadphoneDetails } from "../headphone-details/component";
 import { Reviews } from "../reviews/component";
 import { useEffect } from "react";
 import { useCount } from "../../hooks/use-count";
+import { Button } from "../button/component";
+import { SIZES } from "../../constants/sizes";
+
+import styles from "./styles.module.scss";
 
 /* eslint-disable react/jsx-key */
-export const Headphone = ({ headphone }) => {
+export const Headphone = ({ headphone, className }) => {
   const { amount, increment, decrement } = useCount();
-
-  useEffect(() => {
-    if (amount === 2) {
-      increment();
-    }
-  }, [amount, increment]);
 
   if (!headphone) {
     return null;
@@ -22,16 +19,28 @@ export const Headphone = ({ headphone }) => {
   const { name, codecs, reviews } = headphone;
 
   return (
-    <div>
+    <div className={className}>
       <div>
         <h2>{name}</h2>
-        <button onClick={decrement} disabled={amount === 0}>
-          -
-        </button>
-        {amount}
-        <button onClick={increment} disabled={amount === 5}>
-          +
-        </button>
+        <div>
+          <Button
+            onClick={decrement}
+            disabled={amount === 0}
+            viewVariant="primary"
+            className={styles.action}
+          >
+            -
+          </Button>
+          {amount}
+          <Button
+            onClick={increment}
+            disabled={amount === 5}
+            viewVariant="primary"
+            className={styles.action}
+          >
+            +
+          </Button>
+        </div>
       </div>
       <HeadphoneDetails headphone={headphone} />
       <div>

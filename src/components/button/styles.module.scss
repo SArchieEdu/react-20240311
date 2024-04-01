@@ -1,0 +1,31 @@
+.root {
+  margin: 0;
+  padding: 0;
+}
+
+.disabled {
+  opacity: 0.2;
+}
+
+.primary {
+  background-color: orangered;
+  color: white;
+}
+
+.secondary {
+  background-color: rgb(192, 192, 192);
+  color: black;
+}
+
+.s {
+  font-size: 12px;
+  padding: 1px 2px;
+}
+.m {
+  font-size: 16px;
+  padding: 2px 4px;
+}
+.l {
+  font-size: 20px;
+  padding: 3px 6px;
+}
