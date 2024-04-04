@@ -1,8 +1,6 @@
 import classNames from "classnames";
 import styles from "./styles.module.scss";
 import { SIZES } from "../../constants/sizes";
-import { useContext } from "react";
-import { ThemeContext } from "../../contexts/theme";
 
 export const Button = ({
   children,
@@ -12,8 +10,6 @@ export const Button = ({
   viewVariant = "primary",
   size = SIZES.m,
 }) => {
-  const theme = useContext(ThemeContext);
-
   return (
     <button
       onClick={onClick}
@@ -28,7 +24,6 @@ export const Button = ({
         }
       )}
     >
-      {theme}
       {children}
     </button>
   );

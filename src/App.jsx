@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { Headphone } from "./components/headphone/component";
 import { Layout } from "./components/layout/component";
-import { headphones } from "./constants/mock";
 import { HeadphoneTabs } from "./components/headphone-tabs/component";
 import { ThemeContext } from "./contexts/theme";
 import { Button } from "./components/button/component";
 
 export const App = () => {
-  const [currentHeadphoneIndex, setCurrentHeadphoneIndex] = useState(0);
-  const currentHeadphone = headphones[currentHeadphoneIndex];
+  const [currentHeadphoneId, setCurrentHeadphoneId] = useState(0);
   const [theme, setTheme] = useState("default");
 
   return (
@@ -20,11 +18,10 @@ export const App = () => {
       </Button>
       <Layout>
         <HeadphoneTabs
-          headphones={headphones}
-          currentIndex={setCurrentHeadphoneIndex}
-          onTabClick={setCurrentHeadphoneIndex}
+          currentHeadphoneId={setCurrentHeadphoneId}
+          onTabClick={setCurrentHeadphoneId}
         />
-        {currentHeadphone && <Headphone headphone={currentHeadphone} />}
+        {currentHeadphoneId && <Headphone headphoneId={currentHeadphoneId} />}
       </Layout>
     </ThemeContext.Provider>
   );

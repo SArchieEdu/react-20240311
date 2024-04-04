@@ -1,16 +1,18 @@
 import { Codecs } from "../codecs/component";
 import { HeadphoneDetails } from "../headphone-details/component";
 import { Reviews } from "../reviews/component";
-import { useEffect } from "react";
 import { useCount } from "../../hooks/use-count";
 import { Button } from "../button/component";
-import { SIZES } from "../../constants/sizes";
 
 import styles from "./styles.module.scss";
+import { useSelector } from "react-redux";
 
 /* eslint-disable react/jsx-key */
-export const Headphone = ({ headphone, className }) => {
+export const Headphone = ({ headphoneId, className }) => {
   const { amount, increment, decrement } = useCount();
+  const headphone = useSelector(
+    (state) => state.headphone.entities[headphoneId]
+  );
 
   if (!headphone) {
     return null;
@@ -45,11 +47,11 @@ export const Headphone = ({ headphone, className }) => {
       <HeadphoneDetails headphone={headphone} />
       <div>
         <h3>Codecs</h3>
-        <Codecs codecs={codecs} />
+        <Codecs codecIds={codecs} />
       </div>
       <div>
         <h3>Reviews</h3>
-        <Reviews reviews={reviews} />
+        <Reviews reviewIds={reviews} />
       </div>
     </div>
   );
