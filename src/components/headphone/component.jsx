@@ -3,16 +3,25 @@ import { HeadphoneDetails } from "../headphone-details/component";
 import { Reviews } from "../reviews/component";
 import { useCount } from "../../hooks/use-count";
 import { Button } from "../button/component";
+import { useSelector } from "react-redux";
+import { selectHeadphoneById } from "../../redux/entities/headphone/selectors";
 
 import styles from "./styles.module.scss";
-import { useSelector } from "react-redux";
+import { selectProductAmount } from "../../redux/ui/cart/selectors";
+import { useDispatch } from "react-redux";
+import { decrementProduct, incrementProduct } from "../../redux/ui/cart";
 
 /* eslint-disable react/jsx-key */
 export const Headphone = ({ headphoneId, className }) => {
-  const { amount, increment, decrement } = useCount();
-  const headphone = useSelector(
-    (state) => state.headphone.entities[headphoneId]
+  const headphone = useSelector((state) =>
+    selectHeadphoneById(state, headphoneId)
   );
+  const dispatch = useDispatch();
+  const amount = useSelector((state) =>
+    selectProductAmount(state, headphoneId)
+  );
+  const increment = () => dispatch(incrementProduct(headphoneId));
+  const decrement = () => dispatch(decrementProduct(headphoneId));
 
   if (!headphone) {
     return null;
@@ -51,7 +60,7 @@ export const Headphone = ({ headphoneId, className }) => {
       </div>
       <div>
         <h3>Reviews</h3>
-        <Reviews reviewIds={reviews} />
+        <Reviews headphoneId={headphoneId} />
       </div>
     </div>
   );

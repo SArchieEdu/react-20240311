@@ -1,13 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { normalizedHeadphones } from "../../../constants/normolized-mock";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { getHeadphones } from "./thunks/get-headphones";
+
+const entityAdapter = createEntityAdapter();
 
 export const headphoneSlice = createSlice({
   name: "headphone",
-  initialState: {
-    entities: normalizedHeadphones.reduce((acc, headphone) => {
-      acc[headphone.id] = headphone;
-      return acc;
-    }, {}),
-    ids: normalizedHeadphones.map(({ id }) => id),
-  },
+  initialState: entityAdapter.getInitialState(),
+  extraReducers: (builder) =>
+    builder.addCase(getHeadphones.fulfilled, (state, { payload: headphones }) =>
+      entityAdapter.setAll(state, headphones)
+    ),
 });

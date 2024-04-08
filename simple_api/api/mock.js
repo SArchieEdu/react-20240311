@@ -1,4 +1,4 @@
-export const normalizedReviews = [
+const normalizedReviews = [
   {
     id: "asdad312143e3r2re12e",
     user: "hr83h29h9h9u12h9213",
@@ -37,7 +37,7 @@ export const normalizedReviews = [
   },
 ];
 
-export const normalizedUsers = [
+const normalizedUsers = [
   {
     id: "hr83h29h9h9u12h9213",
     name: "Artem",
@@ -52,7 +52,7 @@ export const normalizedUsers = [
   },
 ];
 
-export const normalizedCodecs = [
+const normalizedCodecs = [
   { id: "ngu45hg8374hg3g8", type: "SBC" },
   { id: "djuh34782g6g7", type: "AAC" },
   { id: "djuh347adas2g6g7", type: "LDAC" },
@@ -61,7 +61,7 @@ export const normalizedCodecs = [
   { id: "djuaddfs2g623543534g7", type: "aptX LL" },
 ];
 
-export const normalizedHeadphones = [
+const normalizedHeadphones = [
   {
     name: "Apple AirPods Pro",
     id: "MLXJ2LLA",
@@ -189,3 +189,10 @@ export const normalizedHeadphones = [
     ],
   },
 ];
+
+module.exports = {
+  products: normalizedHeadphones,
+  codecs: normalizedCodecs,
+  reviews: normalizedReviews,
+  users: normalizedUsers,
+};

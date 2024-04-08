@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
 import { HeadphoneTab } from "../headphone-tab/component";
+import { selectHeadphoneIds } from "../../redux/entities/headphone/selectors";
 
 /* eslint-disable react/jsx-key */
 export const HeadphoneTabs = ({ onTabClick, currentHeadphoneId }) => {
-  const headphoneIds = useSelector((state) => state.headphone.ids);
+  const headphoneIds = useSelector(selectHeadphoneIds);
 
   return (
     <div>
