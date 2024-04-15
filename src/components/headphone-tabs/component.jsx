@@ -1,19 +1,24 @@
-import { useSelector } from "react-redux";
+import { useGetHeadphonesQuery } from "../../redux/service/api";
 import { HeadphoneTab } from "../headphone-tab/component";
-import { selectHeadphoneIds } from "../../redux/entities/headphone/selectors";
+
+import styles from "./styles.module.css";
 
 /* eslint-disable react/jsx-key */
-export const HeadphoneTabs = ({ onTabClick, currentHeadphoneId }) => {
-  const headphoneIds = useSelector(selectHeadphoneIds);
+export const HeadphoneTabs = () => {
+  const { data: headphones, isLoading } = useGetHeadphonesQuery();
+
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
+
+  if (!headphones) {
+    return null;
+  }
 
   return (
-    <div>
-      {headphoneIds.map((headphoneId) => (
-        <HeadphoneTab
-          headphoneId={headphoneId}
-          isActive={headphoneId === currentHeadphoneId}
-          onClick={() => onTabClick(headphoneId)}
-        />
+    <div className={styles.root}>
+      {headphones.map((headphone) => (
+        <HeadphoneTab headphone={headphone} className={styles.tab} />
       ))}
     </div>
   );

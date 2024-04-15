@@ -1,14 +1,24 @@
+import { useGetCodecsQuery } from "../../redux/service/api";
 import { Codec } from "../codec/component";
 
 /* eslint-disable react/jsx-key */
 
-export const Codecs = ({ codecIds }) => {
-  console.log(codecIds);
+export const Codecs = ({ headphoneId }) => {
+  const { data: codecs, isFetching } = useGetCodecsQuery(headphoneId);
+
+  if (isFetching) {
+    return <div>Loading</div>;
+  }
+
+  if (!codecs.length) {
+    return null;
+  }
+
   return (
     <ul>
-      {codecIds.map((codecId) => (
+      {codecs.map((codec) => (
         <li>
-          <Codec codecId={codecId} />
+          <Codec codec={codec} />
         </li>
       ))}
     </ul>

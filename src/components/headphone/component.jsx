@@ -10,12 +10,21 @@ import styles from "./styles.module.scss";
 import { selectProductAmount } from "../../redux/ui/cart/selectors";
 import { useDispatch } from "react-redux";
 import { decrementProduct, incrementProduct } from "../../redux/ui/cart";
+import { useGetHeadphonesQuery } from "../../redux/service/api";
+import { NewReviewForm } from "../new-review-form/component";
+import { useParams } from "react-router-dom";
 
 /* eslint-disable react/jsx-key */
-export const Headphone = ({ headphoneId, className }) => {
-  const headphone = useSelector((state) =>
-    selectHeadphoneById(state, headphoneId)
-  );
+export const Headphone = ({ className }) => {
+  const { headphoneId } = useParams();
+
+  const { data: headphone } = useGetHeadphonesQuery(undefined, {
+    selectFromResult: (result) => ({
+      ...result,
+      data: result.data?.find(({ id }) => id === headphoneId),
+    }),
+  });
+
   const dispatch = useDispatch();
   const amount = useSelector((state) =>
     selectProductAmount(state, headphoneId)
@@ -56,11 +65,12 @@ export const Headphone = ({ headphoneId, className }) => {
       <HeadphoneDetails headphone={headphone} />
       <div>
         <h3>Codecs</h3>
-        <Codecs codecIds={codecs} />
+        <Codecs headphoneId={headphoneId} />
       </div>
       <div>
         <h3>Reviews</h3>
         <Reviews headphoneId={headphoneId} />
+        <NewReviewForm headphoneId={headphoneId} />
       </div>
     </div>
   );

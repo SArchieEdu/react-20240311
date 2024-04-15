@@ -1,19 +1,17 @@
-import { useSelector } from "react-redux";
-import { Button } from "../button/component";
-import { selectHeadphoneById } from "../../redux/entities/headphone/selectors";
+import { NavLink } from "react-router-dom";
 
-export const HeadphoneTab = ({ headphoneId, isActive, onClick }) => {
-  const headphone = useSelector((state) =>
-    selectHeadphoneById(state, headphoneId)
-  );
+import styles from "./styles.module.css";
+import classNames from "classnames";
 
-  if (!headphone) {
-    return null;
-  }
-
+export const HeadphoneTab = ({ headphone, className }) => {
   return (
-    <Button onClick={onClick} disabled={isActive}>
-      {headphone?.name}
-    </Button>
+    <NavLink
+      to={`/headphones/${headphone.id}`}
+      className={({ isActive }) =>
+        classNames(styles.tab, className, { [styles.active]: isActive })
+      }
+    >
+      {headphone.name}
+    </NavLink>
   );
 };
